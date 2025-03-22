@@ -77,3 +77,16 @@ class DeadlockApp:
         tk.Label(self.root, text="Allocation Matrix (row-wise, comma-separated):").grid(row=2, column=0)
         self.allocation_entry = tk.Entry(self.root)
         self.allocation_entry.grid(row=2, column=1)
+        
+        tk.Label(self.root, text="Max Demand Matrix (row-wise, comma-separated):").grid(row=3, column=0)
+        self.max_demand_entry = tk.Entry(self.root)
+        self.max_demand_entry.grid(row=3, column=1)
+
+        tk.Label(self.root, text="Available Resources (comma-separated):").grid(row=4, column=0)
+        self.available_entry = tk.Entry(self.root)
+        self.available_entry.grid(row=4, column=1)
+
+        # Buttons for actions
+        tk.Button(self.root, text="Check Deadlock", command=self.check_deadlock).grid(row=5, column=0, columnspan=2)
+        tk.Button(self.root, text="Visualize RAG", command=self.visualize_rag).grid(row=6, column=0, columnspan=2)
+        tk.Button(self.root, text="Recover from Deadlock", command=self.recover_deadlock).grid(row=7, column=0, columnspan=2)
