@@ -90,3 +90,22 @@ class DeadlockApp:
         tk.Button(self.root, text="Check Deadlock", command=self.check_deadlock).grid(row=5, column=0, columnspan=2)
         tk.Button(self.root, text="Visualize RAG", command=self.visualize_rag).grid(row=6, column=0, columnspan=2)
         tk.Button(self.root, text="Recover from Deadlock", command=self.recover_deadlock).grid(row=7, column=0, columnspan=2)
+def check_deadlock(self):
+        try:
+            self.check_func_test=True
+            processes = self.processes_entry.get().split(',')
+            resources = self.resources_entry.get().split(',')
+            allocation = [list(map(int, row.split(','))) for row in self.allocation_entry.get().split(';')]
+            max_demand = [list(map(int, row.split(','))) for row in self.max_demand_entry.get().split(';')]
+            available = list(map(int, self.available_entry.get().split(',')))
+
+            # Validate input dimensions
+            if len(allocation) != len(processes) or len(max_demand) != len(processes):
+                messagebox.showerror("Input Error", "Allocation and Max Demand matrices must have the same number of rows as processes.")
+                return
+            if len(allocation[0]) != len(resources) or len(max_demand[0]) != len(resources):
+                messagebox.showerror("Input Error", "Allocation and Max Demand matrices must have the same number of columns as resources.")
+                return
+            if len(available) != len(resources):
+                messagebox.showerror("Input Error", "Available resources must match the number of resources.")
+                return
