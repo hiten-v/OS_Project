@@ -142,3 +142,24 @@ class DeadlockApp:
                         G.add_edge(resources[j],processes[i], weight=allocation[i][j])
                     if need[i][j] > 0:
                         G.add_edge(processes[i], resources[j], weight=need[i][j])
+
+            # Draw the graph
+            pos = nx.spring_layout(G)
+            nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=2000, font_size=10, font_weight='bold')
+            edge_labels = nx.get_edge_attributes(G, 'weight')
+            nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+            plt.show()
+        
+        except ValueError:
+            messagebox.showerror("Input Error", "Invalid input format. Please ensure all fields are filled.")
+
+
+    def recover_deadlock(self):
+        try:
+            processes = self.processes_entry.get().split(',')
+            resources = self.resources_entry.get().split(',')
+            allocation = [list(map(int, row.split(','))) for row in self.allocation_entry.get().split(';')]
+            max_demand = [list(map(int, row.split(','))) for row in self.max_demand_entry.get().split(';')]
+            available = list(map(int, self.available_entry.get().split(',')))
+            banker = BankersAlgorithm(processes, resources, allocation, max_demand, available)
+            self.is_safe, safe_sequence = banker.is_safe()
