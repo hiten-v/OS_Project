@@ -54,3 +54,26 @@ class DeadlockRecovery:
             return "Rolling back a process to a safe state."
         else:
             return "Invalid recovery method."
+        
+# Module 2: Visualization and GUI
+class DeadlockApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Deadlock Detection and Prevention")
+        self.create_widgets()
+        self.is_safe=True
+        self.check_func_test=False
+
+    def create_widgets(self):
+        # Input fields for processes and resources
+        tk.Label(self.root, text="Processes (comma-separated):").grid(row=0, column=0)
+        self.processes_entry = tk.Entry(self.root)
+        self.processes_entry.grid(row=0, column=1)
+
+        tk.Label(self.root, text="Resources (comma-separated):").grid(row=1, column=0)
+        self.resources_entry = tk.Entry(self.root)
+        self.resources_entry.grid(row=1, column=1)
+
+        tk.Label(self.root, text="Allocation Matrix (row-wise, comma-separated):").grid(row=2, column=0)
+        self.allocation_entry = tk.Entry(self.root)
+        self.allocation_entry.grid(row=2, column=1)
