@@ -128,3 +128,17 @@ class DeadlockApp:
             banker = BankersAlgorithm(processes, resources, allocation, max_demand, available)
             need=banker.need
             G = nx.DiGraph()
+            
+            # Add nodes for processes and resources
+            for process in processes:
+                G.add_node(process, type='process')
+            for resource in resources:
+                G.add_node(resource, type='resource')
+
+            # Add edges based on allocation
+            for i in range(len(processes)):
+                for j in range(len(resources)):
+                    if allocation[i][j] > 0:
+                        G.add_edge(resources[j],processes[i], weight=allocation[i][j])
+                    if need[i][j] > 0:
+                        G.add_edge(processes[i], resources[j], weight=need[i][j])
