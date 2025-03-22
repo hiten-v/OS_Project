@@ -109,3 +109,12 @@ def check_deadlock(self):
             if len(available) != len(resources):
                 messagebox.showerror("Input Error", "Available resources must match the number of resources.")
                 return
+            banker = BankersAlgorithm(processes, resources, allocation, max_demand, available)
+            self.is_safe, safe_sequence = banker.is_safe()
+
+            if self.is_safe:
+                messagebox.showinfo("Deadlock Check", f"System is in a safe state. Safe sequence: {safe_sequence}")
+            else:
+                messagebox.showwarning("Deadlock Check", "System is in an unsafe state. Deadlock may occur.")
+        except ValueError:
+            messagebox.showerror("Input Error", "Invalid input format. Please ensure all fields are filled.")
