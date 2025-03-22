@@ -36,3 +36,21 @@ class BankersAlgorithm:
             return True, safe_sequence
         else:
             return False, []
+# Module 3: Deadlock Simulation and Recovery
+class DeadlockRecovery:
+    def __init__(self, processes, resources, allocation, max_demand):
+        self.processes = processes
+        self.resources = resources
+        self.allocation = allocation
+        self.max_demand = max_demand
+        
+
+    def recover(self, method):
+        if method == "terminate":
+            return "Terminating a process to recover from deadlock."
+        elif method == "preempt":
+            return "Preempting resources to recover from deadlock."
+        elif method == "rollback":
+            return "Rolling back a process to a safe state."
+        else:
+            return "Invalid recovery method."
