@@ -13,3 +13,26 @@ class BankersAlgorithm:
         self.max_demand = max_demand
         self.available = available
         self.need = [[self.max_demand[i][j] - self.allocation[i][j] for j in range(len(resources))] for i in range(len(processes))]
+    def is_safe(self):
+        
+        work = self.available.copy()
+        finish = [False] * len(self.processes)
+        safe_sequence = []
+
+        while True:
+            found = False
+            for i in range(len(self.processes)):
+                if not finish[i] and all(self.need[i][j] <= work[j] for j in range(len(self.resources))):
+                    # Allocate resources to the process
+                    work = [work[j] + self.allocation[i][j] for j in range(len(self.resources))]
+                    finish[i] = True
+                    safe_sequence.append(self.processes[i])
+                    found = True
+
+            if not found:
+                break
+
+        if all(finish):
+            return True, safe_sequence
+        else:
+            return False, []
