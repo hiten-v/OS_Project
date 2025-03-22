@@ -128,7 +128,7 @@ class DeadlockApp:
             banker = BankersAlgorithm(processes, resources, allocation, max_demand, available)
             need=banker.need
             G = nx.DiGraph()
-            
+
             # Add nodes for processes and resources
             for process in processes:
                 G.add_node(process, type='process')
@@ -182,3 +182,8 @@ class DeadlockApp:
                 messagebox.showwarning("Deadlock not checked","Please click on check deadlock button")
         except ValueError:
             messagebox.showerror("Input Error", "Invalid input format. Please ensure all fields are filled.")
+# Run the application
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = DeadlockApp(root)  # Pass the root window to the DeadlockApp class
+    root.mainloop()
