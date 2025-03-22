@@ -163,3 +163,22 @@ class DeadlockApp:
             available = list(map(int, self.available_entry.get().split(',')))
             banker = BankersAlgorithm(processes, resources, allocation, max_demand, available)
             self.is_safe, safe_sequence = banker.is_safe()
+            if(self.check_func_test==True):
+                self.check_func_test=False
+                if(self.is_safe==False):
+                    recovery = DeadlockRecovery(processes, resources, allocation, max_demand)
+                    recovery_method = tk.simpledialog.askstring("Recovery Method","Choose a recovery method (terminate, preempt, rollback):")
+
+                    # Validate the recovery method
+                    if recovery_method not in ["terminate", "preempt", "rollback"]:
+                        messagebox.showerror("Invalid Method", "Please choose a valid recovery method: terminate, preempt, or rollback.")
+                    else:
+                        result = recovery.recover(recovery_method)
+                        messagebox.showinfo("Recovery", result)
+
+                else:
+                    messagebox.showinfo("Deadlock checked","System in safe state there exists no deadlock")
+            else:
+                messagebox.showwarning("Deadlock not checked","Please click on check deadlock button")
+        except ValueError:
+            messagebox.showerror("Input Error", "Invalid input format. Please ensure all fields are filled.")
