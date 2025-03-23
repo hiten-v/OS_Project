@@ -65,31 +65,59 @@ class DeadlockApp:
         self.check_func_test=False
 
     def create_widgets(self):
+        self.root.grid_columnconfigure(0, weight=1)
+        self.root.grid_columnconfigure(1, weight=1)
+        self.root.grid_columnconfigure(2, weight=1)
+        self.root.grid_columnconfigure(3, weight=1)
+        self.root.grid_columnconfigure(4, weight=1)
+        self.root.grid_columnconfigure(5, weight=1)
+        self.root.grid_columnconfigure(6, weight=1)
+        self.root.grid_columnconfigure(7, weight=1)
+        self.root.grid_columnconfigure(8, weight=1)
+        
+       
+       
+        self.root.grid_rowconfigure(0, weight=1)
+        self.root.grid_rowconfigure(1, weight=1)
+        self.root.grid_rowconfigure(2, weight=1)
+        self.root.grid_rowconfigure(3, weight=1)
+        self.root.grid_rowconfigure(4, weight=1)
+        self.root.grid_rowconfigure(5, weight=1)
+        self.root.grid_rowconfigure(6, weight=1)
+        self.root.grid_rowconfigure(7, weight=1)
+        self.root.grid_rowconfigure(8, weight=1)
+        self.root.grid_rowconfigure(9, weight=1)
+        self.root.grid_rowconfigure(10, weight=1)
+        
         # Input fields for processes and resources
-        tk.Label(self.root, text="Processes (comma-separated):").grid(row=0, column=0)
-        self.processes_entry = tk.Entry(self.root)
-        self.processes_entry.grid(row=0, column=1)
+        bcg='floral white'
+        hlc="gray"
+        hbc="floral white"
+        tk.Label(self.root, text="Processes (comma-separated):",font=("Arial",10),fg='black',bg=bcg,padx=4).grid(row=1, column=3, sticky="e")
+        self.processes_entry = tk.Entry(self.root,relief="solid",width=40,highlightbackground=hbc,highlightcolor=hlc,highlightthickness=2)    
+        self.processes_entry.grid(row=1, column=5,sticky='w',padx=2)
 
-        tk.Label(self.root, text="Resources (comma-separated):").grid(row=1, column=0)
-        self.resources_entry = tk.Entry(self.root)
-        self.resources_entry.grid(row=1, column=1)
+        tk.Label(self.root, text="Resources (comma-separated):",font=("Arial",10),fg='black',bg=bcg,padx=4).grid(row=2, column=3,sticky='e')
+        self.resources_entry = tk.Entry(self.root,relief="solid",width=40,highlightbackground=hbc,highlightcolor=hlc,highlightthickness=2)
+        self.resources_entry.grid(row=2, column=5,sticky='w',padx=2)
 
-        tk.Label(self.root, text="Allocation Matrix (row-wise, comma-separated):").grid(row=2, column=0)
-        self.allocation_entry = tk.Entry(self.root)
-        self.allocation_entry.grid(row=2, column=1)
+        tk.Label(self.root, text="Allocation Matrix (row-wise, comma-separated):",font=("Arial",10),fg='black',bg=bcg,padx=4).grid(row=3, column=3,sticky='e')
+        self.allocation_entry = tk.Entry(self.root,relief="solid",width=40,highlightbackground=hbc,highlightcolor=hlc,highlightthickness=2)
+        self.allocation_entry.grid(row=3, column=5,sticky='w',padx=2)
 
-        tk.Label(self.root, text="Max Demand Matrix (row-wise, comma-separated):").grid(row=3, column=0)
-        self.max_demand_entry = tk.Entry(self.root)
-        self.max_demand_entry.grid(row=3, column=1)
+        tk.Label(self.root, text="Max Demand Matrix (row-wise, comma-separated):",font=("Arial",10),fg='black',bg=bcg,padx=4).grid(row=4, column=3,sticky='e')
+        self.max_demand_entry = tk.Entry(self.root,relief="solid",width=40,highlightbackground=hbc,highlightcolor=hlc,highlightthickness=2)
+        self.max_demand_entry.grid(row=4, column=5,sticky='w',padx=2)
 
-        tk.Label(self.root, text="Available Resources (comma-separated):").grid(row=4, column=0)
-        self.available_entry = tk.Entry(self.root)
-        self.available_entry.grid(row=4, column=1)
+        tk.Label(self.root, text="Available Resources (comma-separated):",font=("Arial",10),fg='black',bg=bcg,padx=4).grid(row=5, column=3,sticky='e')
+        self.available_entry = tk.Entry(self.root,relief="solid",width=40,highlightbackground=hbc,highlightcolor=hlc,highlightthickness=2)
+        self.available_entry.grid(row=5, column=5,sticky='w',padx=2)
 
         # Buttons for actions
-        tk.Button(self.root, text="Check Deadlock", command=self.check_deadlock).grid(row=5, column=0, columnspan=2)
-        tk.Button(self.root, text="Visualize RAG", command=self.visualize_rag).grid(row=6, column=0, columnspan=2)
-        tk.Button(self.root, text="Recover from Deadlock", command=self.recover_deadlock).grid(row=7, column=0, columnspan=2)
+        tk.Button(self.root, text="Check Deadlock",bg='#fc98dc',width=15,height=2, padx=1,pady=2,cursor='hand2', command=self.check_deadlock).grid(row=7, column=2, columnspan=2)
+        tk.Button(self.root, text="Visualize RAG",bg='#70d4fb',pady=2,width=15,height=2,cursor='hand2', command=self.visualize_rag).grid(row=7, column=4, columnspan=1)
+        tk.Button(self.root, text="Recover from Deadlock",bg='#70fbc3',width=20,height=2,padx=2,pady=2,cursor='hand2', command=self.recover_deadlock).grid(row=7, column=5, columnspan=1)
+
     def check_deadlock(self):
         try:
             self.check_func_test=True
@@ -185,5 +213,12 @@ class DeadlockApp:
 # Run the application
 if __name__ == "__main__":
     root = tk.Tk()
+    p='floral white'
+    root.minsize(700,600)
+    root.maxsize(1500,1000)
+    root.attributes('-alpha',1)
+    root.iconbitmap(r'OS_Project\lock.ico')
+    root.geometry('900x450')
+    root.configure(bg=p)
     app = DeadlockApp(root)  # Pass the root window to the DeadlockApp class
     root.mainloop()
