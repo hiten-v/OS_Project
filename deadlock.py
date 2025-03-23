@@ -146,6 +146,7 @@ class DeadlockApp:
                 messagebox.showwarning("Deadlock Check", "System is in an unsafe state. Deadlock may occur.")
         except ValueError:
             messagebox.showerror("Input Error", "Invalid input format. Please ensure all fields are filled.")
+   
     def visualize_rag(self):
         try:
             processes = self.processes_entry.get().split(',')
@@ -174,13 +175,26 @@ class DeadlockApp:
             # Draw the graph
             pos = nx.spring_layout(G)
             nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=2000, font_size=10, font_weight='bold')
+            resource_nodes = [n for n, attr in G.nodes(data=True) if attr['type'] == 'resource']
+            process_nodes = [n for n, attr in G.nodes(data=True) if attr['type'] == 'process']
+
+            # Draw process nodes (circles)
+            nx.draw_networkx_nodes(G, pos, nodelist=process_nodes, node_color='lightblue', node_size=2000, node_shape='o')
+
+            # Draw resource nodes (squares)
+            nx.draw_networkx_nodes(G, pos, nodelist=resource_nodes, node_color='lightgreen', node_size=2000, node_shape='s')
+
+            # Draw edges
+            nx.draw_networkx_edges(G, pos, arrowstyle='->', arrowsize=20)
+
+            # Draw node labels
+            nx.draw_networkx_labels(G, pos, font_size=10, font_weight='bold')
             edge_labels = nx.get_edge_attributes(G, 'weight')
             nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
             plt.show()
         
         except ValueError:
             messagebox.showerror("Input Error", "Invalid input format. Please ensure all fields are filled.")
-
 
     def recover_deadlock(self):
         try:
